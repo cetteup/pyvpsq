@@ -113,7 +113,7 @@ class Server:
         if packet_type is not response_type:
             # Simply read past packets of unexpected types
             logger.debug(f'Received packet of unexpected type, skipping '
-                         f'(expected: {response_type:02x}, received: {packet_type:02x})')
+                         f'(expected: {response_type}, received: {packet_type})')
             return Server.wrapped_read(connection, query_type, response_type)
 
         return packet

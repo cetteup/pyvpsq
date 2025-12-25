@@ -10,8 +10,9 @@ class ExtendedEnum(Enum):
         return list(map(lambda c: c.value, cls))
 
 
-class PacketType(ExtendedEnum):
-    pass
+class PacketType(int, ExtendedEnum):
+    def __str__(self):
+        return f'{self.__class__.__name__}.{self.name} ({self.value:02x})'
 
 
 class Packet:
@@ -54,7 +55,7 @@ class PrincipalPacket(Packet):
         return self.header == b'\xff\xff\xff\xff\x66\x0a' and len(self.body) % 6 == 0
 
 
-class ServerPacketType(int, ExtendedEnum):
+class ServerPacketType(PacketType):
     Challenge = 0x41
     PlayersResponse = 0x44
     RulesResponse = 0x45
